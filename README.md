@@ -3,7 +3,7 @@ jfront-components usage example
 
 ## Author
 
-[Serg Rajab](https://github.com/SergRajab) <<rajab@mail.ru>>
+[Sergey Radzhabov](https://github.com/SergRajab) <<serg.rajab@gmail.com>>
 
 ---
 
