@@ -1,10 +1,14 @@
-import React, { useState, useEffect }  from 'react';
-import { ListForm } from 'jfront-components';
+import React, { useState, useEffect }  from 'react'
+import { ListForm } from 'jfront-components'
+import { JepAppContext } from 'jfront-components'
+import  { jepWorkstate, Stage, JepWorkstateType } from 'jfront-components'
 
 const App: React.FC = () => {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState(null);
+
+  const [workstate, setWorkstate] = useState<JepWorkstateType>(jepWorkstate);
 
   const cols = [
     {header: "Id", field:"id"},
@@ -45,11 +49,18 @@ const App: React.FC = () => {
       error!==null ? (
       <div>Error: {displayError(error)}</div>
       ) : (
-    <>
-    <ListForm columns={cols} data={data}/>
-    </>
+      <JepAppContext.Provider value={{workstate, setWorkstate}}>
+      {(workstate.stage === Stage.Detail) ? (
+       <div>Здесь будет детальная форма</div>
+       ) : 
+       (workstate.stage === Stage.List) ? (
+       <><ListForm columns={cols} data={data}/></>
+       ) : (
+       <div>Здесь будет просмотр формы</div>
+       )
+     }
+    </JepAppContext.Provider>
       )
-      
     )
   );
 }
